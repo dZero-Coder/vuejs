@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>필터링</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Let's hear some storise!</h1>
+        <div class="form-group">
+            <label for="query">
+                What are you looking for?
+            </label>
+            <input v-model="query" class="form-control">
+        </div>
+        <h3>Search results : </h3>
+        <ul class="list-group">
+            <li v-for="story in search" class="list-group-item">
+                {{story.writer}} said "{{story.plot}}"
+            </li>
+        </ul>
+        <button @click="order = oreder * -1">Reverse</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container',
+        data: {
+            stories : [
+                {
+                    plot:"I crashed my car today!",
+                    writer: "Alex",
+                    votes : 28
+                },
+                {
+                    plot:"Yesterday, someone stole my bag",
+                    writer: "John",
+                    votes : 8
+                },
+                {
+                    plot:"Someone ate my chocolate...",
+                    writer: "John",
+                    votes : 51
+                },
+                {
+                    plot:"I ate someone's chocolate!",
+                    writer: "Alex",
+                    votes : 74
+                },
+            ],
+            query : "",
+            order : -1
+        },
+        computed:{
+            search: function(){
+                let query = this.query;
+                return this.stories.filter(function(story){
+                    // inclues() : 인자의 문자열이 해당 문자열에 포함돼 있는지 확인
+                    return story.plot.includes(query)
+                })
+            }
+        }
+    })
+</script>
+</html>

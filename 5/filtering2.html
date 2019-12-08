@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>필터링</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Let's hear some storise! {{famous.length}}</h1>
+        <ul class="list-group">
+            <li v-for="story in famous" class="list-group-item">
+                {{story.writer}} said "{{story.plot}}" and upvoted {{story.upvoted}} times.
+            </li>
+        </ul>
+        <pre>
+            {{$data}}
+        </pre>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container',
+        data: {
+            stories : [
+                {
+                    plot:"I crashed my car today!",
+                    writer: "Alex",
+                    upvotes: 28
+                },
+                {
+                    plot:"Yesterday, someone stole my bag",
+                    writer: "John",
+                    upvotes: 8
+                },
+                {
+                    plot:"Someone ate my chocolate...",
+                    writer: "John",
+                    upvotes: 51
+                },
+                {
+                    plot:"I ate someone's chocolate!",
+                    writer: "Alex",
+                    upvotes: 74
+                },
+            ]
+        },
+        computed:{
+            famous: function(){
+                return this.stories.filter(function(item){
+                    return item.upvotes > 25;
+                })
+            }
+        }
+    })
+</script>
+</html>

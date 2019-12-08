@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- the || is the logical operator OR -->
+        <div v-if="gender === 'male' || gender === 'female'">
+            <h1>Hello,
+                <!-- render span if 'gender' equals to 'male' -->
+                <span v-show="gender === 'male'">Mister {{name}}.</span>
+                <!-- render span if 'gender' equals to 'female' -->
+                <span v-if="gender === 'female'">Miss {{name}}.</span>
+            </h1>
+        </div>
+        <!-- v-else immediately follows v-if block to work -->
+        <h1 v-else>So you can't decide. Fine!</h1>
+        <!-- show inputs -->
+        <label for="gender">Enter your gender:</label>
+        <input v-model="gender"><br>
+        <label for="name">Enter your name:</label>
+        <input v-model="name">
+        <pre>{{ $data }}</pre>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '#app',
+        data : {
+            gender : "male",
+            name : "홍길동"
+        }
+    })
+</script>
+</html>

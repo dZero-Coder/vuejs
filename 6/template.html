@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>컴포넌트</title>
+</head>
+<body>
+    <div class="container">
+        <story></story>
+        <story></story>
+        <story></story>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- 템플릿 선언 -->
+<template id="story-template">
+    <h2>My horse is amazing</h2>
+</template>
+
+<script>
+    /*
+        컴포넌트 등록 (태그, 생성자)
+        - 태그 : story (컴포넌트 이름)
+        - 생성자 : template 옵션 사용
+    */
+    Vue.component('story', {
+        template: "#story-template"
+    });
+
+    new Vue({
+        el:'.container'
+    })
+</script>
+</html>
+
+<!--
+    컴포넌트
+    - 기본 HTML 엘리먼트를 확장해 재사용 가능한 코드를 캡슐화하는데 이바지
+    - 컴포넌트는 Vue.js의 컴파일러가 특정 동작을 추가할 사용자 정의 엘리먼트에 해당
+    - 
+-->

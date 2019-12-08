@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <title>부모-자식간 통신2</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Food Battle</h1>
+        <p style="font-size:140px;">
+            {{votes.count}}
+        </p>
+        <button class="btn btn-danger" @click="reset">Reset Votes</button>
+        <hr>
+        
+        <div class="row">
+            <food name="Cheeburger"></food>
+            <food name="Double Bacon Burger"></food>
+            <food name="Rodeo Burger"></food>
+        </div>
+
+        <h1>Log:</h1>
+        <ul class="list-group">
+            <li class="list-group-item" v-for="vote in votes.log"> {{vote}}</li>
+        </ul>
+    </div>
+</body>
+<!-- Food Component Template -->
+<template id="food">
+    <div class="text-center col-lg-4">
+        <p style="font-size:40px;">
+            {{votes}}
+        </p>
+        <button class="btn btn-default" @click="vote">{{name}}</button>
+    </div>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const bus = new Vue()
+    // Food Component
+    Vue.component('food', {
+        template: '#food',
+        props:['name'],
+        data: function(){
+            return{
+                votes: 0
+            }
+        },
+        methods:{
+            vote:function(event){
+                // this.name을 사용하는 대신 이벤트의 엘리먼트의 텍스트에 접근가능
+                let food = event.srcElement.textContent;
+                this.votes++
+                bus.$emit('voted', food)
+            },
+            reset: function(){
+                this.votes = 0
+            }
+        },
+        created(){
+            bus.$on('reset', this.reset)
+        }
+    })
+
+    // 부모 Component
+    new Vue({
+        el: '.container',
+        data:{
+            votes: {
+                count:0,
+                log: []
+            },
+        },
+        methods:{
+            countVote: function(food){
+                this.votes.count++
+                this.votes.log.push(food + ' received a vote.')
+            },
+            reset:function(){
+                this.votes = {
+                    count:0,
+                    log: []
+                }
+                bus.$emit('reset')
+            },
+        },
+        created(){
+            bus.$on('voted', this.countVote)
+        }
+    })
+</script>
+</html>

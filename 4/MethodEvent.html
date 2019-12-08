@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Method Event</title>
+</head>
+<body>
+    <div class="container">
+        <button class="btn btn-primary btn-lg btn-block" @click="upvote">
+        <!--<button class="btn btn-primary btn-lg btn-block" v-on:click="upvote">-->
+            Upvote! {{upvotes}}
+        </button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container',
+        data : {
+            upvotes : 0
+        },
+        // method 정의
+        methods : {
+            upvote : function(){
+                this.upvotes++;     // this : Vue 인스턴스
+            }
+        }
+    })
+</script>
+</html>
+
+<!--
+    <button v-on:click="method명"></button>        
+    <button @click="method명"></button>
+-->

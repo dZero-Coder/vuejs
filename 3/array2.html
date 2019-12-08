@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>객체 배열 렌더링</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Let's hear some storise!</h1>
+        <div>
+            <ul class="list-group">
+                <!-- index : 현재 항목의 인덱스를 표시해야 하는 경우 사용하는 특별한 변수 -->
+                <li v-for="(story, index) in stories" class="list-group-item">
+                    {{index}}. {{story.writer}} said "{{story.plot}}"
+                </li>
+            </ul>
+        </div>
+        <pre>
+            {{$data}}
+        </pre>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container',
+        data: {
+            stories : [
+                {
+                    plot:"I crashed my car today!",
+                    writer: "Alex"
+                },
+                {
+                    plot:"Yesterday, someone stole my bag",
+                    writer: "John"
+                },
+                {
+                    plot:"Someone ate my chocolate...",
+                    writer: "John"
+                },
+                {
+                    plot:"I ate someone's chocolate!",
+                    writer: "Alex"
+                },
+            ]
+        }
+    })
+</script>
+</html>
+<!--
+    배열의 각 항목을 순회하기 위해 v-for 디렉티브를 사용
+-->

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <title>프로퍼티</title>
+</head>
+<body>
+    <div class="container text-center">
+        <p style="font-size:140px;">
+            {{votes}}
+        </p>
+        <button class="btn btn-primary" @click="vote">Vote</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '.container',
+        data: {
+            votes: 0
+        },
+        methods:{
+            vote:function(writer){
+                // 이벤트 트리거(발생)
+                this.$emit('voted')
+            },
+        },
+        created(){
+            // 이벤트 감지(청취)
+            this.$on('voted', function(button){
+                this.votes++
+            })
+        }
+    })
+</script>
+</html>
+<!--
+    Event Bus를 이용한 컴포넌트 간 통신
+    - 컴포넌트 분리를 통해 복잡성을 제어, 재사용성, 테스트 및 유지보수에 용이
+    - 각 컴포넌트 간의 통신은 불편해지며, 이벤트 버스를 통해 이벤트 기반의 컴포넌트 간의 통신을 수행
+
+    - 동일 컴포넌트 내에서는 $on과 $emit을 이용하여 이벤트를 주고 받을 수 있음
+    - 부모 자식 관계에서 $on을 이용하여 자식 컴포넌트에서 호출한 이벤트 감지 불가능
+    - 부모 컴포넌트의 템플릿에서 v-on을 사용하여 자식 컴포넌트에서 보내진 이벤트를 청취
+-->
+
+<!--
+    생명주기 훅 : 이벤트가 발생할 때 실행되는 함수
+    - beforeCreate : 인스턴스가 초기화된 후 데이터 감시 및 이벤트/감시자를 설정하기 전
+    - created : 인스턴스가 생성된 후
+    - beforeMount : 마운트가 시작되기 직전
+    - mounted : 인스턴스가 이제 막 DOM에 마운트된 직후
+    - beforeUpdate : 데이터 변경 시 가상 DOM이 다시 렌더링되고 패치되기 전
+    - updated : 데이터 변경 후 가상 DOM이 다시 렌더링되고 패치된 후
+    - activated : keep-alive 상태의 컴포넌트가 활성화될 때
+    - deactivated : keep-alive 상태의 컴포넌트가 비 활성화될 때
+    - beforeDestroy : Vue 인스턴스가 파괴되기 직전
+    - destroyed :  Vue 인스턴스가 파괴된 후
+-->

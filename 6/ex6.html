@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <title>프로퍼티</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h2>Where would like to go?</h2>
+            <ul class="list-group">
+                <planet v-for="planet in planets" :planet="planet"></planet>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- 템플릿 선언 -->
+<template id="planet-template">
+    <li class="list-group-item">
+        <!-- list에 출력 -->
+        Planet : {{planet.name}} Visited {{planet.visitCnt}} time(s).
+        
+        <!-- 방문 버튼 -->
+        <button v-show="isVisite" @click="visit" class="btn btn-default">
+            Visit
+        </button>
+
+        <span v-show="planet.visitCnt > 0" class="fa fa-rocket fa-2x pull-right" aria-hidden="true"></span>
+    </li>
+</template>
+
+<script>
+    Vue.component('planet', {
+        props: ['planet'],
+        template: '#planet-template',
+        methods:{
+            // 투표수 증가
+            visit: function(){
+                this.planet.visitCnt++;
+            },
+        },
+        computed:{
+            isVisite: function(){
+                return this.planet.visitCnt < 3;
+            },
+        }
+    });
+
+    new Vue({
+        el: '#app',
+        data: {
+            planets:[
+                {
+                    name: 'Mercury',
+                    visitCnt : 0,
+                },
+                {
+                    name: 'Venus',
+                    visitCnt : 0,
+                },
+                {
+                    name: 'Mars',
+                    visitCnt : 0,
+                },
+                {
+                    name: 'Jupiter',
+                    visitCnt : 0,
+                },
+            ]
+        }
+    })
+</script>
+</html>

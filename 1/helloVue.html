@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue</title>
+    <!--
+        데이터 바인딩 
+        - 메시지를 입력하고 이를 실시간으로 표시
+        - 
+    -->
+</head>
+<body>
+    <div id="app">
+        <h1>{{ message }}</h1>      <!-- 데이터 바인딩 -->
+        <input v-model="message">   <!-- 양방향 바인딩 (v-model로 input이 message 변수와 바인딩 -->
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const datas = {
+        message:"Greetings your Majesty!"
+    };
+
+    // Vue 인스턴스 생성
+    new Vue({
+        el : '#app',    // 엘리먼트 참조
+        data : datas    // datas 객체 전달
+    })
+</script>
+</html>

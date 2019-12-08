@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <title>부모-자식간 통신2</title>
+</head>
+<body>
+    <div class="container text-center">
+        <p style="font-size:140px;">
+            {{votes}}
+        </p>
+        <div class="row">
+            <food @voted="countVote" name="Cheeburger"></food>
+            <food @voted="countVote" name="Double Bacon Burger"></food>
+            <food @voted="countVote" name="Rodeo Burger"></food>
+        </div>
+
+        <h1>Log:</h1>
+        <ul class="list-group">
+            <li class="list-group-item" v-for="vote in log"> {{vote}}</li>
+        </ul>
+    </div>
+</body>
+<!-- Food Component Template -->
+<template id="food">
+    <div class="text-center col-lg-4">
+        <p style="font-size:40px;">
+            {{votes}}
+        </p>
+        <button class="btn btn-default" @click="vote">{{name}}</button>
+    </div>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const bus = new Vue()
+    // Food Component
+    Vue.component('food', {
+        template: '#food',
+        props:['name'],
+        data: function(){
+            return{
+                votes: 0
+            }
+        },
+        methods:{
+            vote:function(){
+                this.votes++
+                this.$emit('voted', event.srcElement.textContent)
+            }
+        },
+    })
+
+    // 부모 Component
+    new Vue({
+        el: '.container',
+        data:{
+            votes: 0,
+            log: []
+        },
+        methods:{
+            countVote: function(food){
+                this.votes++
+                this.log.push(food + ' received a vote.')
+            },
+        },
+    })
+</script>
+</html>
+
+<!-- 
+    $emit() : 이벤트 이름 인자와 함께 리스너의 콜백 함수에 추가로 전달
+    vm.$emit('voted', 'Alex', 'Sunday', 'Bob Ross')
+-->

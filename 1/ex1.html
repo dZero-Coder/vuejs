@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        Input 입력을 통해 Hello, {{name}} 표제를 만들기
+    -->
+    <div id="hello">
+        <h1>Hello, {{msg}}</h1>
+        <input v-model="msg">
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const data = {
+        msg : "홍길동"
+    }
+    new Vue({
+        el : '#hello',
+        data : data
+    })
+</script>
+</html>

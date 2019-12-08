@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>프로퍼티</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Lets hear som stories!</h2>
+        <div>
+            <h3>Alex's stories</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <story v-for="story in storiesBy('Alex')" :key="index" :story="story" ></story>
+                </li>
+            </ul>
+            <h3>John's stories</h3>
+            <ul class="list-group">
+                    <li class="list-group-item">
+                        <story v-for="story in storiesBy('John')" :key="index" :story="story" ></story>
+                    </li>
+                </ul>
+            <div class="form-group">
+                <label for="query">What are you looking for?</label>
+                <input v-model="query" class="form-control">
+            </div>
+            <h3>Search Result</h3>
+            <ul class="list-group">
+                <story v-for="story in search" :key="index" :story="story"></story>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- 템플릿 선언 -->
+<template id="story-template">
+    <h2>{{story.writer}} said "{{story.body}}"</h2>
+</template>
+
+<script>
+    /*
+        컴포넌트 등록 (태그, 생성자)
+        - 태그 : story (컴포넌트 이름)
+        - 생성자 : template 옵션 사용
+    */
+    Vue.component('story', {
+        props:['story'],     // 새로운 프로퍼티 plot을 컴포넌트의 props 속성에 추가
+        template: "#story-template"
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            stories: [
+                {
+                    body: "I crashed my car today!",
+                    writer: "Alex"
+                },
+                {
+                    body: "Yesterday, someone stole my bag!",
+                    writer: "John"
+                },
+                {
+                    body: "Someone ate my chocolate...",
+                    writer: "John"
+                },
+                {
+                    body: "I ate someone's chocolate!",
+                    writer: "Alex"
+                },
+            ],
+            query: ' '
+        },
+        methods:{
+            storiesBy: function (writer) {
+                return this.stories.filter(function (story) {
+                    return story.writer === writer
+                })
+            }
+        },
+        computed: {
+            search: function () {
+                var query = this.query
+                return this.stories.filter(function (story) {
+                    return story.body.includes(query)
+                })
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>v-for - 리스트 렌더링</title>
+</head>
+<body>
+    <div class="container">
+        <h1>The multiplication table of 4.</h1>
+        <ul class="list-group">
+            <li v-for="i in 11" class="list-group-item">
+                {{i-1}} times 4 equals {{(i-1)*4}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container'
+    })
+</script>
+</html>
+<!--
+    배열의 각 항목을 순회하기 위해 v-for 디렉티브를 사용
+-->

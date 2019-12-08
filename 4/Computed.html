@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Computed</title>
+</head>
+<body>
+    <div class="container">
+        a = {{a}}, b = {{b}}<br>
+        <input v-model.number="a">  <!-- 사용자 입력을 하면 숫자로 저장 -->
+        <pre>
+            {{$data}}
+        </pre>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container',
+        data : {
+            a : 5,
+        },
+        computed : {
+            // 계산된 프로퍼티
+            b : function(){
+                return this.a + 1
+            }
+        }
+    })
+</script>
+</html>
+
+<!--
+    <button v-on:click="method명"></button>        
+    <button @click="method명"></button>
+-->

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>객체 배열 렌더링2</title>
+</head>
+<body>
+    <div class="container">
+        <h1>This is me!</h1>
+        <div>
+            <ul class="list-group">
+                <li v-for="(value, key, index) in info" 
+                    class="list-group-item">
+                    {{index}}. {{key}} : {{value}}
+                </li>
+            </ul>
+        </div>
+        <pre>
+            {{$data}}
+        </pre>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container',
+        data: {
+            info : {
+                name : "Kostas",
+                height : "1.73m",
+                weight : "65kg",
+                eyeColor : "brown",
+                favoriteFood : "NtoImas"
+            }
+        }
+    })
+</script>
+</html>

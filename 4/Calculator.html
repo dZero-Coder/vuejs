@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Type 2 numbers and choose operation.</h2>
+        <form class="form-inline">
+            <!-- 입력을 숫자로 파싱하기 위해 특별 한정자 number를 사용-->
+            <input v-model.number="a" class="form-control">
+            <select v-model="operator" class="form-control">
+                <option>+</option>
+                <option>-</option>
+                <option>*</option>
+                <option>/</option>
+            </select>
+            <input v-model.number="b" class="form-control">
+            <!--
+                v-on의 4가지 이벤트
+                - prevent
+                - stop
+                - capture
+                - self
+            -->
+            <button type="submit" @click.prevent="calculate" class="btn btn-primary">
+                Calculate
+            </button>
+        </form>
+        <h3>Result : {{a}}  {{operator}}  {{b}} = {{c}}</h3>
+        <pre>
+            {{$data}}
+        </pre>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : '.container',
+        data : {
+            a : 1,
+            b : 2,
+            c : null,
+            operator : "+",
+        },
+        // method 정의
+        methods : {
+            calculate : function(e){
+                // e.preventDefault(); // @click.prevent가 대체
+                switch(this.operator){
+                    case "+": this.c = this.a + this.b;break;
+                    case "-": this.c = this.a - this.b;break;
+                    case "*": this.c = this.a * this.b;break;
+                    case "/": this.c = this.a / this.b;break;
+                }
+            }
+        },
+    })
+</script>
+</html>
+
+<!--
+    <button v-on:click="method명"></button>        
+    <button @click="method명"></button>
+-->

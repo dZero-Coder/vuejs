@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Computed</title>
+</head>
+<body>
+    <div class="container">
+        <h1>People of Vue</h1>
+        <ul class="list-group">
+            <!--
+                Vue에서 개별 DOM 노드들을 추적하고 기존 엘리먼트를 재사용, 
+                재정렬하기 위해서 v-for의 각 항목들에 고유한 key 속성을 제공해야 합니다. 
+                key에 대한 이상적인 값은 각 항목을 식별할 수 있는 고유한 ID입니다. 
+                key는 Vue가 노드를 식별하는 일반적인 메커니즘이기 때문에 v-for와 특별히 연관되지 
+                않는 다른 용도로도 사용됩니다.
+            -->
+            <li v-for="(candidate, index) in candidates" :key="candidates.name" class="list-group-item">
+                {{candidate.name}} {{candidate.votes}}
+                <!-- 버튼 클릭시 votes 값 증가 -->
+                <button class="btn btn-default" @click="candidate.votes++">Vote</button>
+            </li>
+        </ul>
+        <!-- delete 키 누르면 초기화 -->
+        <input @keyup.delete="clear" class="form-control" placeholder="press 'delete' to reset">
+        <h2>Our mayor is {{mayor.name}}!</h2>
+        <pre>{{ $data }}</pre>
+        <pre>{{ mayor }}</pre>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '.container',
+        data: {
+            candidates: [
+                {name: "Mr. Black", votes: 140},
+                {name: "Mr. White", votes: 135},
+                {name: "Mr. Pink", votes: 145},
+                {name: "Mr. Brown", votes: 130},
+            ]
+        },
+        // computed는 javascript의 onload와 같은 역할
+        computed: {
+            mayor: function () {
+                // votes 기준으로 정렬
+                const candidatesSorted = this.candidates.sort(function (a, b) {
+                    return b.votes - a.votes;   // 내림차순
+                });
+                //the mayor will be the first item
+                return candidatesSorted[0];     // 첫번째 
+            }
+        },
+        methods: {
+            // delete 키를 누르면 초기화 하는 함수
+            clear: function () {
+                // votes의 속성을 0으로 초기화
+                this.candidates = this.candidates.map(function (candidate) {
+                    candidate.votes = 0;
+                    return candidate;
+                })
+            }
+        }
+    })
+</script>
+</html>

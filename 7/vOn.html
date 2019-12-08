@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <title>프로퍼티</title>
+</head>
+<body>
+    <div class="container text-center">
+        <p style="font-size:140px;">
+            {{votes}}
+        </p>
+        <button class="btn btn-primary" @click="vote">Vote</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '.container',
+        data: {
+            votes: 0
+        },
+        methods:{
+            vote:function(writer){
+                // 이벤트 트리거
+                this.$emit('voted')
+            },
+        },
+        created(){
+            // 이벤트 감지
+            this.$on('voted', function(button){
+                this.votes++
+            })
+        }
+    })
+</script>
+</html>
